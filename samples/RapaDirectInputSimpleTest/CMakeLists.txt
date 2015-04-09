@@ -1,0 +1,29 @@
+CMAKE_MINIMUM_REQUIRED( VERSION 3.0 )
+
+PROJECT( RapaDirectInputSimpleTest )
+
+IF( MSVC )
+	INCLUDE( RapaConfigureVisualStudio )
+ENDIF()
+
+INCLUDE_DIRECTORIES( ${RapaDirectInput_SOURCE_DIR} )
+
+SET( SOURCES Main.cpp )
+
+SOURCE_GROUP("" FILES ${SOURCES} )		# Avoid "Header Files" and "Source Files" virtual folders in VisualStudio
+
+# SET(CMAKE_DEBUG_POSTFIX "d")		# Has no effects on executables
+ADD_EXECUTABLE( ${PROJECT_NAME} ${SOURCES} )
+TARGET_LINK_LIBRARIES( ${PROJECT_NAME} RapaDirectInput )
+
+INSTALL( TARGETS  ${PROJECT_NAME}
+		CONFIGURATIONS Debug
+		RUNTIME DESTINATION "bin/debug" 
+		LIBRARY DESTINATION "lib"
+		ARCHIVE DESTINATION "lib"	)
+
+INSTALL( TARGETS  ${PROJECT_NAME}
+		CONFIGURATIONS Release
+		RUNTIME DESTINATION "bin/release" 
+		LIBRARY DESTINATION "lib"
+		ARCHIVE DESTINATION "lib"	)
